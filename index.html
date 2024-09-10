@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Segmentation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Customer Segmentation</h2>
+    <form id="customerForm">
+        <div class="form-group">
+            <label for="Age">Age:</label>
+            <input type="number" class="form-control" id="Age" name="Age" required>
+        </div>
+        <div class="form-group">
+            <label for="Income">Income:</label>
+            <input type="number" class="form-control" id="Income" name="Income" required>
+        </div>
+        <div class="form-group">
+            <label for="Kidhome">Number of Children:</label>
+            <input type="number" class="form-control" id="Kidhome" name="Kidhome" required>
+        </div>
+        <div class="form-group">
+            <label for="Teenhome">Number of Teenagers:</label>
+            <input type="number" class="form-control" id="Teenhome" name="Teenhome" required>
+        </div>
+        <div class="form-group">
+            <label for="Recency">Recency (days since last purchase):</label>
+            <input type="number" class="form-control" id="Recency" name="Recency" required>
+        </div>
+        <div class="form-group">
+            <label for="Complain">Complain (0 or 1):</label>
+            <input type="number" class="form-control" id="Complain" name="Complain" required>
+        </div>
+        <div class="form-group">
+            <label for="MntWines">Amount Spent on Wines:</label>
+            <input type="number" class="form-control" id="MntWines" name="MntWines" required>
+        </div>
+        <div class="form-group">
+            <label for="MntFruits">Amount Spent on Fruits:</label>
+            <input type="number" class="form-control" id="MntFruits" name="MntFruits" required>
+        </div>
+        <div class="form-group">
+            <label for="MntMeatProducts">Amount Spent on Meat Products:</label>
+            <input type="number" class="form-control" id="MntMeatProducts" name="MntMeatProducts" required>
+        </div>
+        <div class="form-group">
+            <label for="MntFishProducts">Amount Spent on Fish Products:</label>
+            <input type="number" class="form-control" id="MntFishProducts" name="MntFishProducts" required>
+        </div>
+        <div class="form-group">
+            <label for="MntSweetProducts">Amount Spent on Sweets:</label>
+            <input type="number" class="form-control" id="MntSweetProducts" name="MntSweetProducts" required>
+        </div>
+        <div class="form-group">
+            <label for="MntGoldProds">Amount Spent on Gold Products:</label>
+            <input type="number" class="form-control" id="MntGoldProds" name="MntGoldProds" required>
+        </div>
+        <div class="form-group">
+            <label for="NumDealsPurchases">Number of Purchases with Discount:</label>
+            <input type="number" class="form-control" id="NumDealsPurchases" name="NumDealsPurchases" required>
+        </div>
+        <div class="form-group">
+            <label for="AcceptedCmp1">Accepted 1st Campaign (0 or 1):</label>
+            <input type="number" class="form-control" id="AcceptedCmp1" name="AcceptedCmp1" required>
+        </div>
+        <div class="form-group">
+            <label for="AcceptedCmp2">Accepted 2nd Campaign (0 or 1):</label>
+            <input type="number" class="form-control" id="AcceptedCmp2" name="AcceptedCmp2" required>
+        </div>
+        <div class="form-group">
+            <label for="AcceptedCmp3">Accepted 3rd Campaign (0 or 1):</label>
+            <input type="number" class="form-control" id="AcceptedCmp3" name="AcceptedCmp3" required>
+        </div>
+        <div class="form-group">
+            <label for="AcceptedCmp4">Accepted 4th Campaign (0 or 1):</label>
+            <input type="number" class="form-control" id="AcceptedCmp4" name="AcceptedCmp4" required>
+        </div>
+        <div class="form-group">
+            <label for="AcceptedCmp5">Accepted 5th Campaign (0 or 1):</label>
+            <input type="number" class="form-control" id="AcceptedCmp5" name="AcceptedCmp5" required>
+        </div>
+        <div class="form-group">
+            <label for="Response">Accepted Last Campaign (0 or 1):</label>
+            <input type="number" class="form-control" id="Response" name="Response" required>
+        </div>
+        <div class="form-group">
+            <label for="NumWebPurchases">Number of Web Purchases:</label>
+            <input type="number" class="form-control" id="NumWebPurchases" name="NumWebPurchases" required>
+        </div>
+        <div class="form-group">
+            <label for="NumCatalogPurchases">Number of Catalog Purchases:</label>
+            <input type="number" class="form-control" id="NumCatalogPurchases" name="NumCatalogPurchases" required>
+        </div>
+        <div class="form-group">
+            <label for="NumStorePurchases">Number of Store Purchases:</label>
+            <input type="number" class="form-control" id="NumStorePurchases" name="NumStorePurchases" required>
+        </div>
+        <div class="form-group">
+            <label for="NumWebVisitsMonth">Number of Web Visits in Last Month:</label>
+            <input type="number" class="form-control" id="NumWebVisitsMonth" name="NumWebVisitsMonth" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Predict Customer Segment</button>
+    </form>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    document.getElementById('customerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            document.getElementById('result').innerHTML = `<h4>Customer Segment: ${result.Cluster}</h4>`;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>
